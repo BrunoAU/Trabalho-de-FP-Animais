@@ -1,4 +1,4 @@
-import os
+import os, time
 
 animais = []
 eventos = []
@@ -18,7 +18,6 @@ def salvar_dados():
             f.write(f"META|{meta['objetivo']}|{meta['prazo']}|{meta['status']}\n")
         for item in lista_compras:
             f.write(f"COMPRA|{item}\n")
-
 def carregar_dados():
     if not os.path.exists(ARQUIVO_DADOS):
         return
@@ -53,7 +52,6 @@ def carregar_dados():
                 metas.append(meta)
             elif tipo == "COMPRA":
                 lista_compras.append(partes[1])
-
 def cadastrar_animal():
     print("\n--- Cadastro de Animal ---")
     nome = input("Nome do animal: ").strip()
@@ -73,15 +71,15 @@ def cadastrar_animal():
 
     animais.append(animal)
     print(f"\nAnimal '{nome}' cadastrado com sucesso!")
-
 def listar_animais():
     print("\n--- Lista de Animais ---")
     if not animais:
         print("Nenhum animal cadastrado.")
+        time.sleep(1.5)
+        os.system('cls')
     else:
         for i, animal in enumerate(animais, start=1):
             print(f"{i}. Nome: {animal['nome']}, Espécie: {animal['especie']}, Raça: {animal['raca']}, Data de nascimento: {animal['idade']}, Peso: {animal['peso']} kg")
-
 def editar_animal():
     listar_animais()
     if not animais:
@@ -110,7 +108,6 @@ def editar_animal():
             print("Número inválido.")
     except ValueError:
         print("Entrada inválida. Digite um número.")
-
 def remover_animal():
     listar_animais()
     if not animais:
@@ -126,7 +123,6 @@ def remover_animal():
             print("Número inválido.")
     except ValueError:
         print("Entrada inválida. Digite um número.")
-
 def cadastrar_evento():
     print("\n--- Cadastro de Evento ---")
     titulo = input("Título do evento: ")
@@ -137,20 +133,22 @@ def cadastrar_evento():
     evento = {"titulo": titulo, "data": data, "descricao": descricao}
     eventos.append(evento)
     print("Evento cadastrado com sucesso!")
-
 def listar_eventos():
     print("\n--- Lista de Eventos ---")
     if not eventos:
         print("Nenhum evento cadastrado.")
+        time.sleep(1.5)
+        os.system('cls')
     else:
         for i, evento in enumerate(eventos, start=1):
             print(f"{i}. {evento['titulo']} - Data: {evento['data']} - Descrição: {evento['descricao']}")
-
 def concluir_eventos():
     try:
         print("\n--- Concluir Eventos ---")
         if not eventos:
             print("Não há eventos a serem concluídos.")
+            time.sleep(1.5)
+            os.system('cls')
         else:
             for i, evento in enumerate(eventos, start=1):
                 print(f"{i}. {evento['titulo']} - Data: {evento['data']} - Descrição: {evento['descricao']}")
@@ -160,8 +158,7 @@ def concluir_eventos():
                 eventos.pop(conc_eventos-1)
                 print("Evento concluído!")
     except ValueError:
-        print("Opção inválida, por favor, insira um número")
-                    
+        print("Opção inválida, por favor, insira um número inteiro")                 
 def cadastrar_meta():
     print("--- Cadastro de Meta ---")
     objetivo = input("Objetivo: ")
@@ -171,20 +168,22 @@ def cadastrar_meta():
     meta = {"objetivo": objetivo, "prazo": prazo}
     metas.append(meta)
     print("Meta cadastrada com sucesso!")
-
 def listar_metas():
     print("--- Lista de Metas ---")
     if not metas:
         print("Nenhuma meta cadastrada.")
+        time.sleep(1.5)
+        os.system('cls')
     else:
         for i, meta in enumerate(metas, start=1):
             print(f"{i}. {meta['objetivo']} - Prazo: {meta['prazo']}")
-
 def concluir_metas():
     try:
         print("--- Concluir Metas ---")
         if not metas:
             print("Não há metas a serem concluídas.")
+            time.sleep(1.5)
+            os.system('cls')
         else:
             for i, meta in enumerate(metas, start=1):
                 print(f"{i}. {meta['objetivo']} - Prazo: {meta['prazo']}")
@@ -195,7 +194,6 @@ def concluir_metas():
                 print("Meta concluída!")
     except ValueError:
         print("Opção inválida, por favor, insira um número inteiro")
-
 def adicionar_item_compra():
     item = input("Digite o item para adicionar à lista de compras: ").strip()
     os.system('cls')
@@ -204,33 +202,35 @@ def adicionar_item_compra():
         print(f"Item '{item}' adicionado com sucesso.")
     else:
         print("Item vazio não pode ser adicionado.")
-
 def listar_compras():
     print("--- Lista de Compras ---")
     if not lista_compras:
         print("Nenhum item na lista de compras.")
+        time.sleep(1.5)
+        os.system('cls')
     else:
         for i, item in enumerate(lista_compras, start=1):
             print(f"{i}. {item}")
-
 def remover_compras():
     print("--- Remover Itens da Lista de Compras ---")
     if not lista_compras:
         print("Nenhum item na lista de compras.")
-    try:
-        for i, item in enumerate(lista_compras, start=1):
-            print(f"{i}. {item}")
-        indice = int(input("\nDigite o número da compra que deseja remover: ")) - 1
+        time.sleep(1.5)
         os.system('cls')
-        if 0 <= indice < len(lista_compras):
-            lista_compras.pop(indice)
-            print("Item removido!")
-        else:
-            print("Número inválido.")
-    except ValueError:
-        os.system('cls')
-        print("Entrada inválida. Digite um número.")
-
+    else:
+        try:
+            for i, item in enumerate(lista_compras, start=1):
+                print(f"{i}. {item}")
+            indice = int(input("\nDigite o número da compra que deseja remover: ")) - 1
+            os.system('cls')
+            if 0 <= indice < len(lista_compras):
+                lista_compras.pop(indice)
+                print(f"Item removido!")
+            else:
+                print("Número inválido.")
+        except ValueError:
+            os.system('cls')
+            print("Entrada inválida. Digite um número.")
 def sugerir_cuidados():
     while True:
         try:
@@ -270,6 +270,8 @@ def sugerir_cuidados():
                         "caminha limpa, longe de correntes de ar e ruídos.")
                     else:
                         print("Opção inválida")
+                        time.sleep(1.5)
+                        os.system('cls')
                 elif idade == 2:
                     cuidados_cachorro = int(input("\n1: Cuidados principais\n2: Cuidados de higiene\n3: Cuidados de "
                     "Comportamento e socialização\n4: Saúde\n5: Estímulo e aprendizado\n6: Alimentação\nEscolha sua opção: "))
@@ -302,8 +304,12 @@ def sugerir_cuidados():
                         "\n3: Horários fixos: Ajuda na digestão e disciplina.")
                     else:
                         print("Opção inválida")
+                        time.sleep(1.5)
+                        os.system('cls')
                 else:
                     print("\nOpção inválida")
+                    time.sleep(1.5)
+                    os.system('cls')
             elif esc_cuidados == 2:
                 idade = int(input("1: Adulto\n2: Filhote\nQual a idade do seu animal? "))
                 os.system('cls')
@@ -333,6 +339,8 @@ def sugerir_cuidados():
                         "Lugar seguro para descanso: Gatos gostam de tocas, prateleiras e lugares altos.")
                     else:
                         print("Opção inválida")
+                        time.sleep(1.5)
+                        os.system('cls')
                 elif idade == 2:
                     cuidados_gato = int(input("\n1: Cuidados principais\n2: Cuidados de higiene\n3: Cuidados de saúde\n4: Cuidados"
                     " de alimentação\n5: Cuidados de estímulo e comportamento\n6: Segurança e conforto\nEscolha sua opção: "))
@@ -364,14 +372,19 @@ def sugerir_cuidados():
                         " Alimentação, brincadeiras e descanso em horários parecidos ajudam na adaptação.")
                     else:
                         print("Opção inválida")
+                        time.sleep(1.5)
+                        os.system('cls')
             elif esc_cuidados == 3:
-                menu_principal()
+                break
             else:
                 print("Opção inválida")
+                time.sleep(1.5)
+                os.system('cls')
         except ValueError:
             os.system('cls')
             print("Entrada inválida. Digite um número.")
-
+            time.sleep(1.5)
+            os.system('cls')
 def menu_crud_animais():
     while True:
         print("\n=== Menu de Animais ===")
@@ -394,7 +407,8 @@ def menu_crud_animais():
             break
         else:
             print("Opção inválida.")
-
+            time.sleep(1.5)
+            os.system('cls')
 def menu_eventos():
     while True:
         print("\n=== Menu de Eventos ===")
@@ -414,7 +428,8 @@ def menu_eventos():
             break
         else:
             print("Opção inválida.")
-
+            time.sleep(1.5)
+            os.system('cls')
 def menu_metas():
     while True:
         print("\n=== Menu de Metas ===")
@@ -434,7 +449,8 @@ def menu_metas():
             break
         else:
             print("Opção inválida.")
-
+            time.sleep(1.5)
+            os.system('cls')
 def menu_compras():
     while True:
         print("\n=== Menu de Lista de Compras ===")
@@ -454,19 +470,20 @@ def menu_compras():
             break
         else:
             print("Opção inválida.")
-
+            time.sleep(1.5)
+            os.system('cls')
 def menu_principal():
     carregar_dados()
     while True:
-        print("\n====== SISTEMA DE GERENCIAMENTO DE CUIDADOS COM ANIMAIS ======")
+        print("\n\033[1;32m====== SISTEMA DE GERENCIAMENTO DE CUIDADOS COM ANIMAIS ======\033[1;37m")
         print("1. Gerenciar Animais")
         print("2. Gerenciar Eventos")
         print("3. Gerenciar Metas")
         print("4. Sugestões de Cuidados")
         print("5. Lista de Compras")
-        print("6. Salvar e sair")
+        print("6. Salvar & sair")
 
-        opcao = input("Escolha uma opção: ").strip()
+        opcao = input("\033[1;90mEscolha uma opção: \033[0;37m").strip()
         os.system('cls')
         if opcao == "1":
             menu_crud_animais()
@@ -481,8 +498,67 @@ def menu_principal():
         elif opcao == "6":
             salvar_dados()
             print("Encerrando o programa. Até logo!")
+            time.sleep(1.5)
+            os.system('cls')
             break
         else:
-            print("Opção inválida.")
+            print("\033[1;31mOpção inválida...")
+            time.sleep(0.3)
+            os.system('cls')
+def logo():
+    os.system('cls')
+    ascii_art = [
+    "\033[37m██\033[90m╗   \033[37m██\033[90m╗\033[37m██\033[90m╗\033[37m██████\033[90m╗  \033[37m█████\033[90m╗     \033[37m██████\033[90m╗ \033[37m███████\033[90m╗\033[37m████████\033[90m╗",
+    "\033[37m██\033[90m║   \033[37m██\033[90m║\033[37m██\033[90m║\033[37m██\033[90m╔══\033[37m██\033[90m╗\033[37m██\033[90m╔══\033[37m██\033[90m╗    \033[37m██\033[90m╔══\033[37m██\033[90m╗\033[37m██\033[90m╔════╝╚══\033[37m██\033[90m╔══╝",
+    "\033[37m██\033[90m║   \033[37m██\033[90m║\033[37m██\033[90m║\033[37m██\033[90m║  \033[37m██\033[90m║\033[37m███████\033[90m║    \033[37m██████\033[90m╔╝\033[37m█████\033[90m╗     \033[37m██\033[90m║",
+    "\033[90m╚\033[37m██\033[90m╗ \033[37m██\033[90m╔╝\033[37m██\033[90m║\033[37m██\033[90m║  \033[37m██\033[90m║\033[37m██\033[90m╔══\033[37m██\033[90m║    \033[37m██\033[90m╔═══╝ \033[37m██\033[90m╔══╝     \033[37m██\033[90m║",
+    "\033[90m ╚\033[37m████\033[90m╔╝ \033[37m██\033[90m║\033[37m██████\033[90m╔╝\033[37m██\033[90m║  \033[37m██\033[90m║    \033[37m██\033[90m║     \033[37m███████\033[90m╗   \033[37m██\033[90m║",
+    "\033[90m  ╚═══╝  ╚═╝╚═════╝ ╚═╝  ╚═╝    ╚═╝     ╚══════╝   ╚═╝",
+    "\033[37m════════════════════════════════════════════════════════",
+    "   Copyright   ©   1999-2025   VidaPet FPCC & Co. KG"
+]
+    for line in ascii_art:
+        print(line)
+        time.sleep(0.5)
+    os.system('cls')
+def logo_animada():
+    frames = [
+        [
+            "\033[37m██\033[90m╗   \033[37m██\033[90m╗\033[37m██\033[90m╗\033[37m██████\033[90m╗  \033[37m█████\033[90m╗     \033[37m██████\033[90m╗ \033[37m███████\033[90m╗\033[37m████████\033[90m╗",
+            "\033[37m██\033[90m║   \033[37m██\033[90m║\033[37m██\033[90m║\033[37m██\033[90m╔══\033[37m██\033[90m╗\033[37m██\033[90m╔══\033[37m██\033[90m╗    \033[37m██\033[90m╔══\033[37m██\033[90m╗\033[37m██\033[90m╔════╝╚══\033[37m██\033[90m╔══╝",
+            "\033[37m██\033[90m║   \033[37m██\033[90m║\033[37m██\033[90m║\033[37m██\033[90m║  \033[37m██\033[90m║\033[37m███████\033[90m║    \033[37m██████\033[90m╔╝\033[37m█████\033[90m╗     \033[37m██\033[90m║",
+            "\033[90m╚\033[37m██\033[90m╗ \033[37m██\033[90m╔╝\033[37m██\033[90m║\033[37m██\033[90m║  \033[37m██\033[90m║\033[37m██\033[90m╔══\033[37m██\033[90m║    \033[37m██\033[90m╔═══╝ \033[37m██\033[90m╔══╝     \033[37m██\033[90m║",
+            "\033[90m ╚\033[37m████\033[90m╔╝ \033[37m██\033[90m║\033[37m██████\033[90m╔╝\033[37m██\033[90m║  \033[37m██\033[90m║    \033[37m██\033[90m║     \033[37m███████\033[90m╗   \033[37m██\033[90m║",
+            "\033[90m  ╚═══╝  ╚═╝╚═════╝ ╚═╝  ╚═╝    ╚═╝     ╚══════╝   ╚═╝"
+        ],
+        [
+            "\033[30m██\033[37m╗   \033[30m██\033[37m╗\033[30m██\033[37m╗\033[30m██████\033[37m╗  \033[30m█████\033[37m╗     \033[30m██████\033[37m╗ \033[30m███████\033[37m╗\033[30m████████\033[37m╗",
+            "\033[30m██\033[37m║   \033[30m██\033[37m║\033[30m██\033[37m║\033[30m██\033[37m╔══\033[30m██\033[37m╗\033[30m██\033[37m╔══\033[30m██\033[37m╗    \033[30m██\033[37m╔══\033[30m██\033[37m╗\033[30m██\033[37m╔════╝╚══\033[30m██\033[37m╔══╝",
+            "\033[30m██\033[37m║   \033[30m██\033[37m║\033[30m██\033[37m║\033[30m██\033[37m║  \033[30m██\033[37m║\033[30m███████\033[37m║    \033[30m██████\033[37m╔╝\033[30m█████\033[37m╗     \033[30m██\033[37m║",
+            "\033[37m╚\033[30m██\033[37m╗ \033[30m██\033[37m╔╝\033[30m██\033[37m║\033[30m██\033[37m║  \033[30m██\033[37m║\033[30m██\033[37m╔══\033[30m██\033[37m║    \033[30m██\033[37m╔═══╝ \033[30m██\033[37m╔══╝     \033[30m██\033[37m║",
+            "\033[37m ╚\033[30m████\033[37m╔╝ \033[30m██\033[37m║\033[30m██████\033[37m╔╝\033[30m██\033[37m║  \033[30m██\033[37m║    \033[30m██\033[37m║     \033[30m███████\033[37m╗   \033[30m██\033[37m║",
+            "\033[37m  ╚═══╝  ╚═╝╚═════╝ ╚═╝  ╚═╝    ╚═╝     ╚══════╝   ╚═╝"
+        ]
+    ]
 
+    footer = [
+        "\033[37m════════════════════════════════════════════════════════",
+        "   Copyright   ©   1999-2025   VidaPet FPCC & Co. KG"
+    ]
+
+
+    while True:
+        for _ in range(4):
+            for frame in frames:
+                os.system('cls' if os.name == 'nt' else 'clear')
+                for line in frame:
+                    print(line)
+                for line in footer:
+                    print(line)
+                time.sleep(0.5)
+        break
+    os.system('cls')
+
+logo()
+logo_animada()
 menu_principal()
