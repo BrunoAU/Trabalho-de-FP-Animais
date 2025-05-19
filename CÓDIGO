@@ -9,7 +9,7 @@ lista_compras = []
 ARQUIVO_DADOS = "dados_animais.txt"
 
 def salvar_dados():
-    with open(ARQUIVO_DADOS, "w", encoding="utf-8") as f:
+    with open(ARQUIVO_DADOS, "a", encoding="utf-8") as f:
         for animal in animais:
             f.write(f"ANIMAL|{animal['nome']}|{animal['especie']}|{animal['raca']}|{animal['idade']}|{animal['peso']}\n")
         for evento in eventos:
