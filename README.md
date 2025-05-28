@@ -2,7 +2,7 @@
 ### [Manual](https://682b5ba0de82e9799fef2c9f--startling-halva-9f0c35.netlify.app)
 
 ## Sobre
-Neste repositório você encontrará o código para o sistema de cuidados de animais. Muito obrigado por visitar nosso repositório.
+CRUD profissional feito em (PYTHON) para uma atividade do primeiro período de Fundamentos da computação na CESAR SCHOOL.
 
 ## Equipe
 
